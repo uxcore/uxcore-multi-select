@@ -5,11 +5,9 @@
  * Copyright 2014-2015, Uxcore Team, Alinw.
  * All rights reserved.
  */
-@import "../demo/MultiSelectDemo";
+@MultiSelectPrefixCls: kuma-multi-select;
 
-@selectPrefixCls: kuma-multi-select;
-
-.@{selectPrefixCls} {
+.@{MultiSelectPrefixCls} {
   display: inline-block;
   box-sizing: border-box;
   margin: 0;
@@ -61,7 +59,7 @@
     }
   }
 
-  .@{selectPrefixCls}-selection__rendered {
+  .@{MultiSelectPrefixCls}-selection__rendered {
     margin: 0;
     list-style: none;
   }
@@ -91,14 +89,14 @@
       vertical-align: inherit;
     }
 
-    .@{selectPrefixCls}-selection__rendered {
+    .@{MultiSelectPrefixCls}-selection__rendered {
       overflow: hidden;
       text-overflow: ellipsis;
       padding-left: 6px;
       padding-bottom: 4px;
     }
 
-    .@{selectPrefixCls}-selection__choice {
+    .@{MultiSelectPrefixCls}-selection__choice {
       background-color: #f3f3f3;
       cursor: default;
       float: left;
@@ -108,36 +106,36 @@
       position: relative;
     }
 
-    .@{selectPrefixCls}-selection__choice__content {
+    .@{MultiSelectPrefixCls}-selection__choice__content {
       //display: inline-block;
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
       max-width: 100%;
 
-      &:last-child .@{selectPrefixCls}-selection__choice__break {
+      &:last-child .@{MultiSelectPrefixCls}-selection__choice__break {
         display: none;
       }
     }
 
-    .@{selectPrefixCls}-selection__placeholder {
+    .@{MultiSelectPrefixCls}-selection__placeholder {
       color: @input-color-placeholder;
     }
   }
 
   &-open {
-    .@{selectPrefixCls}-arrow {
+    .@{MultiSelectPrefixCls}-arrow {
       &:before {
         content: '\e613';
       }
     }
-    .@{selectPrefixCls}-selection {
+    .@{MultiSelectPrefixCls}-selection {
       border-color: @brand-primary;
     }
   }
 
 }
-.@{selectPrefixCls}-mask {
+.@{MultiSelectPrefixCls}-mask {
   position: fixed;
   width: 100%;
   height: 100%;
@@ -153,7 +151,7 @@
     display: block;
   }
 }
-.@{selectPrefixCls}-dropdown {
+.@{MultiSelectPrefixCls}-dropdown {
 
   //background-color: white;
 
@@ -201,14 +199,14 @@
 
 
 }
-.@{selectPrefixCls}-content {
+.@{MultiSelectPrefixCls}-content {
   overflow-y: auto;
   width: 280px;
   max-height: 102px;
   padding: 4px;
   background-color: #fff;
 }
-.@{selectPrefixCls}-footer {
+.@{MultiSelectPrefixCls}-footer {
 
   text-align: center;
   background: #f2f2f2;
@@ -216,7 +214,7 @@
   p {
     color: #999;
   }
-  .@{selectPrefixCls}-button {
+  .@{MultiSelectPrefixCls}-button {
     margin: 3px;
 
     &-hidden {
