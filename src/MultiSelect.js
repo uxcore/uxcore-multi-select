@@ -6,12 +6,10 @@
  * All rights reserved.
  */
 
-const prefixCls = 'kuma-multi-select';
 
-import {Dropdown, Menu} from 'uxcore-dropdown';
-import CheckboxGroup from 'uxcore-checkbox-group';
-import Button from 'uxcore-button';
-
+let {Dropdown, Menu} = require('uxcore-dropdown');
+let CheckboxGroup = require('uxcore-checkbox-group');
+let Button = require('uxcore-button');
 let assign = require('object-assign');
 
 class MultiSelect extends React.Component {
@@ -112,8 +110,8 @@ class MultiSelect extends React.Component {
       if (me._hasSelected.call(me, item.props.value)) {
         switch (type) {
           case 'content':
-            return <span className={`${prefixCls}-selection__choice__content`}>{item.props[props.optionLabelProp]}
-              <span className={`${prefixCls}-selection__choice__break`}>{props.titleBreakStr}</span></span>;
+            return <span className={`${me.props.prefixCls}-selection__choice__content`}>{item.props[props.optionLabelProp]}
+              <span className={`${me.props.prefixCls}-selection__choice__break`}>{props.titleBreakStr}</span></span>;
             break;
 
           case 'title':
@@ -126,7 +124,7 @@ class MultiSelect extends React.Component {
     if (res.length == 0) {
       switch (type) {
         case 'content':
-          res = <span className={`${prefixCls}-selection__placeholder`}>{me.props.placeholder}</span>
+          res = <span className={`${me.props.prefixCls}-selection__placeholder`}>{me.props.placeholder}</span>
           break;
 
         case 'title':
@@ -149,6 +147,12 @@ class MultiSelect extends React.Component {
     return me.props.value.indexOf(value) != -1;
   }
 
+  _handleVisbleChange(visible) {
+    this.setState({
+      visible: visible
+    })
+  }
+
   render() {
     let me = this,
       props = this.props;
@@ -161,8 +165,8 @@ class MultiSelect extends React.Component {
     });
 
     let menu =
-      <div className={`${prefixCls}-dropdown-border`}>
-        <div className={`${prefixCls}-content`}>
+      <div className={`${me.props.prefixCls}-dropdown-border`}>
+        <div className={`${me.props.prefixCls}-content`}>
           <CheckboxGroup onChange={me.handleChange.bind(me)}
                          value={me.props.value}>
             {React.Children.map(props.children, function (item, index) {
@@ -172,20 +176,20 @@ class MultiSelect extends React.Component {
           </CheckboxGroup>
 
         </div>
-        <div className={`${prefixCls}-footer`}>
+        <div className={`${me.props.prefixCls}-footer`}>
           {!!props.maxSelect && <p>最多选{props.maxSelect}个</p>}
-          <Button additionClass={`${prefixCls}-button${props.showSelectAll ? '' : '-hidden'}`}
+          <Button additionClass={`${me.props.prefixCls}-button${props.showSelectAll ? '' : '-hidden'}`}
                   size="small"
                   disabled={(props.maxSelect && (props.maxSelect < canSelectItemNumbers)) ? true : false}
                   onClick={me.handleSelectAll.bind(me)}>全选
           </Button>
 
-          <Button additionClass={`${prefixCls}-button${props.showClear ? '' : '-hidden'}`}
+          <Button additionClass={`${me.props.prefixCls}-button${props.showClear ? '' : '-hidden'}`}
                   size="small"
                   onClick={me.handleClear.bind(me)}>清空
           </Button>
 
-          <Button additionClass={`${prefixCls}-button`}
+          <Button additionClass={`${me.props.prefixCls}-button`}
                   size="small"
                   onClick={me.handleSubmit.bind(me)}>确认
           </Button>
@@ -194,26 +198,25 @@ class MultiSelect extends React.Component {
 
 
     let cls = [];
-    cls.push(prefixCls);
+    cls.push(me.props.prefixCls);
     cls.push(props.className);
-    cls.push(me.state.visible ? `${prefixCls}-open` : '');
+    cls.push(me.state.visible ? `${me.props.prefixCls}-open` : '');
     cls = cls.join(' ');
 
     return (
       <div>
-        <div className={`${prefixCls}-mask ${prefixCls}-mask-${!me.state.visible ? 'hidden' : 'show'}`}
-             onClick={me.handleClick.bind(me, false)}></div>
         <Dropdown overlay={menu}
                   minOverlayWidthMatchTrigger={false}
                   visible={me.state.visible}
-                  overlayClassName={`${prefixCls}-dropdown ${props.dropdownClassName}`}>
-            <span className={`${cls} ${props.className} ${prefixCls}-${me.props.disabled ? 'disabled' : 'enabled'}`}
-                  onClick={me.handleClick.bind(me)}>
-                <span className={`${prefixCls}-selection ${prefixCls}-selection--multiple`}>
-                    <span className={`${prefixCls}-selection--multiple--content`} title={me._processLabel('title')}>
+                  onVisibleChange={me._handleVisbleChange.bind(me)}
+                  trigger="click"
+                  overlayClassName={`${me.props.prefixCls}-dropdown ${props.dropdownClassName}`}>
+            <span className={`${cls} ${props.className} ${me.props.prefixCls}-${me.props.disabled ? 'disabled' : 'enabled'}`}>
+                <span className={`${me.props.prefixCls}-selection ${me.props.prefixCls}-selection--multiple`}>
+                    <span className={`${me.props.prefixCls}-selection--multiple--content`} title={me._processLabel('title')}>
                         {me._processLabel('content')}
                     </span>
-                    <span className={`${prefixCls}-arrow`}></span>
+                    <span className={`${me.props.prefixCls}-arrow`}></span>
                 </span>
             </span>
         </Dropdown>
@@ -223,6 +226,7 @@ class MultiSelect extends React.Component {
 }
 
 MultiSelect.defaultProps = {
+  prefixCls: 'kuma-multi-select',
   className: '',
   dropdownClassName: '',
   value: [],
@@ -237,6 +241,7 @@ MultiSelect.defaultProps = {
 }
 
 MultiSelect.propTypes = {
+  prefixCls: React.PropTypes.string,
   className: React.PropTypes.string,
   dropdownClassName: React.PropTypes.string,
   value: React.PropTypes.array,
