@@ -11,6 +11,7 @@ let {Dropdown, Menu} = require('uxcore-dropdown');
 let CheckboxGroup = require('uxcore-checkbox-group');
 let Button = require('uxcore-button');
 let assign = require('object-assign');
+let classnames = require('classnames');
 
 class MultiSelect extends React.Component {
   constructor(props) {
@@ -20,12 +21,6 @@ class MultiSelect extends React.Component {
     };
 
     this.lastValue = this.props.value || [];
-  }
-
-  handleClick(type) {
-    this.setState({
-      visible: type == null ? !this.state.visible : type
-    })
   }
 
   handleChange(value) {
@@ -110,8 +105,8 @@ class MultiSelect extends React.Component {
       if (me._hasSelected.call(me, item.props.value)) {
         switch (type) {
           case 'content':
-            return <span className={`${me.props.prefixCls}-selection__choice__content`}>{item.props[props.optionLabelProp]}
-              <span className={`${me.props.prefixCls}-selection__choice__break`}>{props.titleBreakStr}</span></span>;
+            return <span className={`${props.prefixCls}-selection__choice__content`}>{item.props[props.optionLabelProp]}
+              <span className={`${props.prefixCls}-selection__choice__break`}>{props.titleBreakStr}</span></span>;
             break;
 
           case 'title':
@@ -124,11 +119,11 @@ class MultiSelect extends React.Component {
     if (res.length == 0) {
       switch (type) {
         case 'content':
-          res = <span className={`${me.props.prefixCls}-selection__placeholder`}>{me.props.placeholder}</span>
+          res = <span className={`${props.prefixCls}-selection__placeholder`}>{props.placeholder}</span>
           break;
 
         case 'title':
-          res = [me.props.placeholder];
+          res = [props.placeholder];
               break;
       }
     } else {
@@ -165,43 +160,42 @@ class MultiSelect extends React.Component {
     });
 
     let menu =
-      <div className={`${me.props.prefixCls}-dropdown-border`}>
-        <div className={`${me.props.prefixCls}-content`}>
+      <div className={`${props.prefixCls}-dropdown-border`}>
+        <div className={`${props.prefixCls}-content`}>
           <CheckboxGroup onChange={me.handleChange.bind(me)}
-                         value={me.props.value}>
+                         value={props.value}>
             {React.Children.map(props.children, function (item, index) {
-                return <CheckboxGroup.Item {...item.props} key={index} jsxdisabled={me.props.disabled} />
+                return <CheckboxGroup.Item {...item.props} key={index} jsxdisabled={props.disabled} />
               })
             }
           </CheckboxGroup>
 
         </div>
-        <div className={`${me.props.prefixCls}-footer`}>
+        <div className={`${props.prefixCls}-footer`}>
           {!!props.maxSelect && <p>最多选{props.maxSelect}个</p>}
-          <Button additionClass={`${me.props.prefixCls}-button${props.showSelectAll ? '' : '-hidden'}`}
+          <Button additionClass={classnames({
+              [props.prefixCls + '-button']: true,
+              [props.prefixCls + '-button-hidden']: !props.showSelectAll
+            })}
                   size="small"
                   disabled={(props.maxSelect && (props.maxSelect < canSelectItemNumbers)) ? true : false}
                   onClick={me.handleSelectAll.bind(me)}>全选
           </Button>
 
-          <Button additionClass={`${me.props.prefixCls}-button${props.showClear ? '' : '-hidden'}`}
+          <Button additionClass={classnames({
+              [props.prefixCls + '-button']: true,
+              [props.prefixCls + '-button-hidden']: !props.showClear
+            })}
                   size="small"
                   onClick={me.handleClear.bind(me)}>清空
           </Button>
 
-          <Button additionClass={`${me.props.prefixCls}-button`}
+          <Button additionClass={`${props.prefixCls}-button`}
                   size="small"
                   onClick={me.handleSubmit.bind(me)}>确认
           </Button>
         </div>
       </div>;
-
-
-    let cls = [];
-    cls.push(me.props.prefixCls);
-    cls.push(props.className);
-    cls.push(me.state.visible ? `${me.props.prefixCls}-open` : '');
-    cls = cls.join(' ');
 
     return (
       <div>
@@ -210,13 +204,21 @@ class MultiSelect extends React.Component {
                   visible={me.state.visible}
                   onVisibleChange={me._handleVisbleChange.bind(me)}
                   trigger="click"
-                  overlayClassName={`${me.props.prefixCls}-dropdown ${props.dropdownClassName}`}>
-            <span className={`${cls} ${props.className} ${me.props.prefixCls}-${me.props.disabled ? 'disabled' : 'enabled'}`}>
-                <span className={`${me.props.prefixCls}-selection ${me.props.prefixCls}-selection--multiple`}>
-                    <span className={`${me.props.prefixCls}-selection--multiple--content`} title={me._processLabel('title')}>
+                  overlayClassName={classnames({
+                    [props.prefixCls + '-dropdown']: true,
+                    [props.dropdownClassName]: !!props.dropdownClassName
+                  })}>
+           <span className={classnames({
+             [props.prefixCls]: true,
+             [props.className]: !!props.className,
+             [props.prefixCls + '-open']: me.state.visible,
+             [props.prefixCls + '-disabled']: props.disabled
+           })}>
+                <span className={`${props.prefixCls}-selection ${props.prefixCls}-selection--multiple`}>
+                    <span className={`${props.prefixCls}-selection--multiple--content`} title={me._processLabel('title')}>
                         {me._processLabel('content')}
                     </span>
-                    <span className={`${me.props.prefixCls}-arrow`}></span>
+                    <span className={`${props.prefixCls}-arrow`}></span>
                 </span>
             </span>
         </Dropdown>
