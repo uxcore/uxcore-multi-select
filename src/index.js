@@ -6,4 +6,4 @@
  * All rights reserved.
  */
 
-module.exports = require('./Multiselect');
+module.exports = require('./MultiSelect');

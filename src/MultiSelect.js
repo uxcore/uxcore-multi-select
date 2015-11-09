@@ -7,7 +7,7 @@
  */
 
 
-let {Dropdown, Menu} = require('uxcore-dropdown');
+let Dropdown = require('uxcore-dropdown');
 let CheckboxGroup = require('uxcore-checkbox-group');
 let Button = require('uxcore-button');
 let assign = require('object-assign');
@@ -208,7 +208,7 @@ class MultiSelect extends React.Component {
                   minOverlayWidthMatchTrigger={false}
                   visible={me.state.visible}
                   onVisibleChange={me._handleVisbleChange.bind(me)}
-                  trigger="click"
+                  trigger={["click"]}
                   overlayClassName={classnames({
                     [props.prefixCls + '-dropdown']: true,
                     [props.dropdownClassName]: !!props.dropdownClassName
