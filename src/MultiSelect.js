@@ -143,6 +143,11 @@ class MultiSelect extends React.Component {
   }
 
   _handleVisbleChange(visible) {
+    let props = this.props;
+
+    if (props.disabled) {
+      return;
+    }
     this.setState({
       visible: visible
     })

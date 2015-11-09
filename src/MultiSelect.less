@@ -46,19 +46,7 @@
       border-color: @brand-primary;
     }
   }
-
-  &-disabled {
-    color: @gray-dark;
-    cursor: @cursor-disabled;
-    pointer-events: none;
-  }
-
-  &-disabled &-selection {
-    &:hover, &:active {
-      border-color: @input-border;
-    }
-  }
-
+  
   .@{MultiSelectPrefixCls}-selection__rendered {
     margin: 0;
     list-style: none;
@@ -120,6 +108,18 @@
 
     .@{MultiSelectPrefixCls}-selection__placeholder {
       color: @input-color-placeholder;
+    }
+  }
+
+  &-disabled {
+    color: @gray-dark;
+    cursor: @cursor-disabled;
+    pointer-events: none;
+  }
+
+  &-disabled &-selection {
+    &:hover, &:active {
+      border-color: @input-border;
     }
   }
 
