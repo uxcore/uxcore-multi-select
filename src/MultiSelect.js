@@ -6,7 +6,8 @@
  * All rights reserved.
  */
 
-
+let React = require('react'); 
+let ReactDOM = require('react-dom');
 let Dropdown = require('uxcore-dropdown');
 let CheckboxGroup = require('uxcore-checkbox-group');
 let Button = require('uxcore-button');
