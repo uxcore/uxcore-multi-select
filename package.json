@@ -1,6 +1,6 @@
 {
  "name": "uxcore-multi-select",
- "version": "0.1.4",
+ "version": "0.2.0",
  "description": "uxcore-multi-select component for uxcore.",
  "repository": "https://github.com/uxcore/uxcore-multi-select.git",
  "author": "peijie.dpj",
@@ -40,16 +40,17 @@
   "gulp-sourcemaps": "~1.5.2",
   "html-wiring": "~1.2.0",
   "inquirer": "^0.12.0",
+  "kuma-base": "~1.0.7",
   "react": "~0.14.0",
   "react-dom": "~0.14.0",
-  "uxcore-kuma": "~1.1.0",
+  "uxcore-kuma": "~2.1.0",
   "webpack": "^1.10.5"
  },
  "dependencies": {
   "classnames": "^2.1.2",
   "object-assign": "^4.0.0",
   "uxcore-button": "~0.3.1",
-  "uxcore-checkbox-group": "~1.0.6",
+  "uxcore-checkbox-group": "~1.1.0",
   "uxcore-dropdown": "~0.2.0"
  },
  "contributors": [],

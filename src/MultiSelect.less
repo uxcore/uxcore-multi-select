@@ -40,10 +40,10 @@
     outline: none;
     user-select: none;
 
-    background-color: @input-bg;
-    border: 1px solid @input-border;
+    background-color: white;
+    border: 1px solid @border-color;
     &:hover {
-      border-color: @brand-primary;
+      border-color: @border-hover-color;
     }
   }
   
@@ -130,7 +130,7 @@
       }
     }
     .@{MultiSelectPrefixCls}-selection {
-      border-color: @brand-primary;
+      border-color: @border-hover-color;
     }
   }
 
@@ -201,7 +201,7 @@
 }
 .@{MultiSelectPrefixCls}-content {
   overflow-y: auto;
-  width: 280px;
+  width: 320px;
   max-height: 102px;
   padding: 4px;
   background-color: #fff;
