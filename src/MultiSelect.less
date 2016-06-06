@@ -115,9 +115,11 @@
     color: @gray-dark;
     cursor: @cursor-disabled;
     pointer-events: none;
+    color: @text-disabled-color;
   }
 
   &-disabled &-selection {
+    background: @bg-disabled-color;
     &:hover, &:active {
       border-color: @border-color;
     }

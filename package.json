@@ -1,6 +1,6 @@
 {
  "name": "uxcore-multi-select",
- "version": "0.2.1",
+ "version": "0.2.2",
  "description": "uxcore-multi-select component for uxcore.",
  "repository": "https://github.com/uxcore/uxcore-multi-select.git",
  "author": "peijie.dpj",
@@ -38,7 +38,7 @@
   "object-assign": "^4.0.0",
   "uxcore-button": "~0.3.1",
   "uxcore-checkbox-group": "~1.1.0",
-  "uxcore-dropdown": "~0.2.0"
+  "uxcore-dropdown": "~0.3.0"
  },
  "contributors": [],
  "license": "MIT"
