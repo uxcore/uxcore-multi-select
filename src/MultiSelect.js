@@ -179,7 +179,7 @@ class MultiSelect extends React.Component {
         </div>
         <div className={`${props.prefixCls}-footer`}>
           {!!props.maxSelect && <p>最多选{props.maxSelect}个</p>}
-          <Button additionClass={classnames({
+          <Button className={classnames({
               [props.prefixCls + '-button']: true,
               [props.prefixCls + '-button-hidden']: !props.showSelectAll
             })}
@@ -188,7 +188,7 @@ class MultiSelect extends React.Component {
                   onClick={me.handleSelectAll.bind(me)}>全选
           </Button>
 
-          <Button additionClass={classnames({
+          <Button className={classnames({
               [props.prefixCls + '-button']: true,
               [props.prefixCls + '-button-hidden']: !props.showClear
             })}
@@ -196,10 +196,10 @@ class MultiSelect extends React.Component {
                   onClick={me.handleClear.bind(me)}>清空
           </Button>
 
-          <Button additionClass={`${props.prefixCls}-button`}
+          {/*<Button className={`${props.prefixCls}-button`}
                   size="small"
                   onClick={me.handleSubmit.bind(me)}>确认
-          </Button>
+          </Button>*/}
         </div>
       </div>;
 
