@@ -1,3 +1,10 @@
+# 0.3.0
+
+* `CHANGED` update `uxcore-dropdown` to ~0.4.0
+* `CHANGED` hide footer if nothing need to be shown
+* `CHANGED` new scaffold
+* `CHANGED` eslint
+
 # 0.2.2
 
 * `CHANGED` disable style change
@@ -17,7 +24,7 @@
 
 # 0.1.3
 
-`CHANGED upgrade to uxcore-dropdown ~0.2.0
+`CHANGED` upgrade to uxcore-dropdown ~0.2.0
 
 # 0.1.2
 
