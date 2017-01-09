@@ -1,17 +1,15 @@
 import expect from 'expect.js';
 import React from 'react';
-import ReactDOM from 'react-dom';
 import { shallow, mount } from 'enzyme';
 import sinon from 'sinon';
 import Button from 'uxcore-button';
+import CheckboxGroup from 'uxcore-checkbox-group';
 
 import MultiSelect from '../src';
-import CheckboxGroup from 'uxcore-checkbox-group';
 
 const Item = MultiSelect.Item;
 
 describe('MultiSelect', () => {
-
   let instance;
   let dropDown;
   it('is shallow rendered without error', () => {
@@ -33,16 +31,16 @@ describe('MultiSelect', () => {
       showSelectAll: React.PropTypes.bool,
       showClear: React.PropTypes.bool,
       onChange: React.PropTypes.func,
-      onSubmit: React.PropTypes.func
+      onSubmit: React.PropTypes.func,
     });
   });
 
   it('has a correct display name', () => {
     expect(MultiSelect.displayName).to.be('MultiSelect');
   });
+  expect(MultiSelect.Item).to.eql(CheckboxGroup.Item);
 
   it('has a correct sub component', () => {
-    expect(MultiSelect.Item).to.eql(CheckboxGroup.Item);
   });
 
   it('is full rendered without error', () => {
@@ -71,7 +69,7 @@ describe('MultiSelect', () => {
     selectArrow.simulate('click');
     expect(instance.state().visible).to.be(false);
     instance = mount(
-      <MultiSelect disabled={true}>
+      <MultiSelect disabled>
         <Item value="1" />
       </MultiSelect>
     );
@@ -136,8 +134,8 @@ describe('MultiSelect', () => {
 
     instance = mount(
       <MultiSelect onChange={spy} value={['2', '3']}>
-        <Item value="1" disabled={true} />
-        <Item value="2" disabled={true} />
+        <Item value="1" disabled />
+        <Item value="2" disabled />
         <Item value="3" />
         <Item value="4" />
       </MultiSelect>
@@ -153,7 +151,7 @@ describe('MultiSelect', () => {
     spy.reset();
 
     instance = mount(
-      <MultiSelect onChange={spy} disabled={true}>
+      <MultiSelect onChange={spy} disabled>
         <Item value="1" />
         <Item value="2" />
       </MultiSelect>
@@ -164,7 +162,5 @@ describe('MultiSelect', () => {
     spy.reset();
     dropDown.find(Button).at(1).simulate('click');
     expect(spy.calledOnce).to.be(false);
-
   });
-
 });

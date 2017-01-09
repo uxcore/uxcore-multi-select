@@ -1,3 +1,7 @@
+# 0.3.1
+
+* `NEW` add tests
+
 # 0.3.0
 
 * `CHANGED` update `uxcore-dropdown` to ~0.4.0
