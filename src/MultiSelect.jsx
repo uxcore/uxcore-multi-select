@@ -7,11 +7,9 @@
  */
 
 import React, { Component, PropTypes } from 'react';
-import ReactDOM from 'react-dom';
 import Dropdown from 'uxcore-dropdown';
 import CheckboxGroup from 'uxcore-checkbox-group';
 import Button from 'uxcore-button';
-import assign from 'object-assign';
 import classnames from 'classnames';
 
 export default class MultiSelect extends Component {
@@ -50,7 +48,7 @@ export default class MultiSelect extends Component {
 
   state = {
     visible: false,
-    lastValues: this.props.value || []
+    lastValues: this.props.value,
   };
 
   handleChange = (values) => {
