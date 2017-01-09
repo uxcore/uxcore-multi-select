@@ -80,23 +80,41 @@ describe('MultiSelect', () => {
     expect(instance.state().visible).to.be(false);
   });
 
-  // it('triggers handleChange correctly', () => {
-  //   const spy = sinon.spy();
-  //   instance = mount(
-  //     <MultiSelect
-  //       onChange={spy}
-  //     >
-  //       <Item value="1" />
-  //       <Item value="2" />
-  //       <Item value="3" />
-  //     </MultiSelect>
-  //   );
-  //   dropDown = mount(instance.find('Trigger').node.getComponent());
-  //   const item = dropDown.find(CheckboxGroup.Item).at(0);
-  //   spy.reset();
-  //
-  //
-  // });
+  it('triggers handleChange correctly', () => {
+    const spy = sinon.spy();
+    instance = mount(
+      <MultiSelect onChange={spy} maxSelect={2}>
+        <Item value="1" />
+        <Item value="2" />
+        <Item value="3" />
+      </MultiSelect>
+    );
+    dropDown = mount(instance.find('Trigger').node.getComponent());
+    const item = dropDown.find(CheckboxGroup.Item);
+    const checkBox1 = item.find('.kuma-checkbox').at(0);
+    checkBox1.node.checked = true;
+    checkBox1.simulate('change');
+    expect(spy.callCount).to.be(1);
+    expect(spy.args[0][0]).to.eql(['1']);
+    checkBox1.node.checked = false;
+    checkBox1.simulate('change');
+    expect(spy.callCount).to.be(2);
+    expect(spy.args[1][0]).to.eql([]);
+    spy.reset();
+    const checkBox2 = item.find('.kuma-checkbox').at(1);
+    const checkBox3 = item.find('.kuma-checkbox').at(2);
+    checkBox1.node.checked = true;
+    checkBox1.simulate('change');
+    checkBox2.node.checked = true;
+    checkBox2.simulate('change');
+    expect(spy.callCount).to.be(2);
+    expect(spy.args[0][0]).to.eql(['1']);
+    expect(spy.args[1][0]).to.eql(['1', '2']);
+    checkBox3.node.checked = true;
+    checkBox3.simulate('change');
+    expect(spy.callCount).to.be(3);
+    expect(spy.args[2][0]).to.eql(['1', '2']);
+  });
 
   it('triggers handleSelectAll and handleClear correctly', () => {
     const spy = sinon.spy();
