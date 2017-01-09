@@ -50,7 +50,7 @@ export default class MultiSelect extends Component {
 
   state = {
     visible: false,
-    lastValues: this.props.value || []
+    lastValues: this.props.value,
   };
 
   handleChange = (values) => {
