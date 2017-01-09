@@ -6,280 +6,243 @@
  * All rights reserved.
  */
 
-const React = require('react');
-const Dropdown = require('uxcore-dropdown');
-const CheckboxGroup = require('uxcore-checkbox-group');
-const Button = require('uxcore-button');
-const classnames = require('classnames');
+import React, { Component, PropTypes } from 'react';
+import Dropdown from 'uxcore-dropdown';
+import CheckboxGroup from 'uxcore-checkbox-group';
+import Button from 'uxcore-button';
+import classnames from 'classnames';
 
-class MultiSelect extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      visible: false,
-    };
+export default class MultiSelect extends Component {
 
-    this.lastValue = this.props.value || [];
-  }
+  static displayName = "MultiSelect";
+  static Item = CheckboxGroup.Item;
+  static propTypes = {
+    prefixCls: PropTypes.string,
+    className: PropTypes.string,
+    dropdownClassName: PropTypes.string,
+    value: PropTypes.array,
+    disabled: PropTypes.bool,
+    maxSelect: PropTypes.number,
+    placeholder: PropTypes.string,
+    titleBreakStr: PropTypes.string,
+    optionLabelProp: PropTypes.string,
+    showSelectAll: PropTypes.bool,
+    showClear: PropTypes.bool,
+    onChange: PropTypes.func,
+    onSubmit: PropTypes.func,
+  };
+  static defaultProps = {
+    prefixCls: 'kuma-multi-select',
+    className: '',
+    dropdownClassName: '',
+    value: [],
+    disabled: false,
+    placeholder: '',
+    titleBreakStr: "、",
+    optionLabelProp: "text",
+    showSelectAll: true,
+    showClear: true,
+    onChange: function () {},
+    onSubmit: function () {},
+  };
 
-  handleChange(value) {
-    const me = this;
-    const props = this.props;
+  state = {
+    visible: false,
+    lastValues: this.props.value,
+  };
 
-    let newValue = [];
-    if (props.maxSelect && value.length > props.maxSelect) {
-      newValue = me.lastValue;
+  handleChange = (values) => {
+    const { props } = this;
+    let newValues = [];
+    if (props.maxSelect && values.length > props.maxSelect) {
+      newValues = this.state.lastValues;
     } else {
-      newValue = value;
-      me.lastValue = value;
+      newValues = values;
+      this.setState({ lastValues: values });
     }
+    props.onChange(newValues);
+  };
 
-    props.onChange(newValue);
-  }
-
-  handleSelectAll() {
-    const me = this;
-    const props = this.props;
-
-    const valueList = [];
+  handleSelectAll = () => {
+    const { props } = this;
+    let valueList = [];
     if (props.disabled) {
       return;
+    } else {
+      React.Children.forEach(props.children, (item) => {
+        if (!item.props.disabled || this._hasSelected(item.props.value)) {
+          valueList.push(item.props.value);
+        }
+      });
     }
-
-    React.Children.map(props.children, (item) => {
-      if (!item.props.disabled || me.hasSelected.call(me, item.props.value)) {
-        valueList.push(item.props.value);
-      }
-    });
-
     props.onChange(valueList);
-  }
+  };
 
-  handleClear() {
-    const me = this;
-    const props = this.props;
-
-    const valueList = [];
-
+  handleClear = () => {
+    const { props } = this;
+    let valueList = [];
     if (props.disabled) {
       return;
+    } else {
+      React.Children.forEach(props.children, (item) => {
+        if (item.props.disabled && this._hasSelected(item.props.value)) {
+          valueList.push(item.props.value);
+        }
+      })
     }
-
-    React.Children.map(props.children, (item) => {
-      if (item.props.disabled && me.hasSelected.call(me, item.props.value)) {
-        valueList.push(item.props.value);
-      }
-    });
-
     props.onChange(valueList);
-  }
+  };
 
-  handleSubmit() {
-    const me = this;
-    const props = this.props;
+  // handleSubmit = () => {
+  //   const { props } = this;
+  //   let labelList = [],
+  //     valueList = [];
+  //   React.Children.map(props.children, (item) => {
+  //     if (this._hasSelected(item.props.value)) {
+  //       labelList.push(item.props[props.optionLabelProp]);
+  //       valueList.push(item.props.value);
+  //     }
+  //   });
+  //   props.onSubmit(valueList, labelList);
+  //
+  //   this.setState({
+  //     visible: false
+  //   })
+  // };
 
-    const labelList = [];
-    const valueList = [];
-
-    React.Children.map(props.children, (item) => {
-      if (me.hasSelected.call(me, item.props.value)) {
-        labelList.push(item.props[props.optionLabelProp]);
-        valueList.push(item.props.value);
-      }
-    });
-
-    props.onSubmit(valueList, labelList);
-
-    me.setState({
-      visible: false,
-    });
-  }
-
-  processLabel(type) {
-    const me = this;
-    const props = this.props;
-
+  _processLabel = (type) => {
+    const { props } = this;
     let res = [];
     res = React.Children.map(props.children, (item) => {
-      if (me.hasSelected.call(me, item.props.value)) {
-        switch (type) {
-          case 'content':
-            return (
-              <span className={`${props.prefixCls}-selection__choice__content`}>{item.props[props.optionLabelProp]}
-                <span className={`${props.prefixCls}-selection__choice__break`}>{props.titleBreakStr}</span></span>
-              );
-          case 'title':
-            return item.props[props.optionLabelProp] + props.titleBreakStr;
-          default:
-            return null;
+        if (this._hasSelected(item.props.value)) {
+          switch (type) {
+            case 'content':
+              return <span className={`${props.prefixCls}-selection__choice__content`}>{item.props[props.optionLabelProp]}<span className={`${props.prefixCls}-selection__choice__break`}>{props.titleBreakStr}</span></span>;
+              break;
+            case 'title':
+              return item.props[props.optionLabelProp] + props.titleBreakStr;
+              break;
+          }
         }
-      }
-      return null;
-    });
+      }) || [];
 
-    if (res.length === 0) {
+    if (res.length == 0) {
       switch (type) {
         case 'content':
           res = <span className={`${props.prefixCls}-selection__placeholder`}>{props.placeholder}</span>;
           break;
-
         case 'title':
           res = [props.placeholder];
           break;
-        default:
-          res = '';
       }
-    } else if (type === 'title') {
-      const len = res.length;
-      res[len - 1] = res[len - 1].slice(0, res[len - 1].length - 1);
+    } else {
+      if (type == 'title') {
+        let len = res.length;
+        res[len - 1] = res[len - 1].slice(0, res[len - 1].length - 1);
+      }
     }
+    return type == 'title' ? res.join('') : res;
+  };
 
-    return type === 'title' ? res.join('') : res;
-  }
+  _hasSelected = (value) => {
+    return this.props.value.indexOf(value) != -1;
+  };
 
-  hasSelected(value) {
-    const me = this;
-
-    return me.props.value.indexOf(value) !== -1;
-  }
-
-  handleVisbleChange(visible) {
-    const props = this.props;
-
+  _handleVisibleChange = (visible) => {
+    const { props } = this;
     if (props.disabled) {
       return;
     }
     this.setState({
-      visible,
+      visible: visible
     });
-  }
+  };
 
   render() {
-    const me = this;
-    const props = this.props;
+    const { props } = this;
 
     // 检查是否可以点击 全选
     let canSelectItemNumbers = 0;
 
-    React.Children.forEach(props.children, (item) => {
-      if (!item.props.disabled) {
-        canSelectItemNumbers += 1;
-      }
+    React.Children.map(props.children, (item) => {
+      !item.props.disabled && canSelectItemNumbers++;
     });
 
-    const menu =
-      (<div className={`${props.prefixCls}-dropdown-border`}>
+    let menu = (
+      <div className={`${props.prefixCls}-dropdown-border`}>
         <div className={`${props.prefixCls}-content`}>
           <CheckboxGroup
-            onChange={me.handleChange.bind(me)}
+            onChange={this.handleChange}
             value={props.value}
           >
-            {React.Children.map(props.children, (item, index) => (
-              <CheckboxGroup.Item {...item.props} key={index} jsxdisabled={props.disabled} />
-            ))
+            {
+              React.Children.map(props.children, (item, index) => {
+                return <CheckboxGroup.Item {...item.props} key={index} jsxdisabled={props.disabled} />
+              })
             }
           </CheckboxGroup>
 
         </div>
-        <div
-          className={classnames(`${props.prefixCls}-footer`, {
-            [`${props.prefixCls}-footer-hidden`]: !props.showSelectAll && !props.showClear && !props.maxSelect,
-          })}
-        >
+        <div className={`${props.prefixCls}-footer`}>
           {!!props.maxSelect && <p>最多选{props.maxSelect}个</p>}
           <Button
             className={classnames({
-              [`${props.prefixCls}-button`]: true,
-              [`${props.prefixCls}-button-hidden`]: !props.showSelectAll,
+              [props.prefixCls + '-button']: true,
+              [props.prefixCls + '-button-hidden']: !props.showSelectAll
             })}
             size="small"
-            disabled={(props.maxSelect && (props.maxSelect < canSelectItemNumbers))}
-            onClick={me.handleSelectAll.bind(me)}
+            disabled={!!(props.maxSelect && (props.maxSelect < canSelectItemNumbers))}
+            onClick={this.handleSelectAll}
           >全选
           </Button>
 
           <Button
             className={classnames({
-              [`${props.prefixCls}-button`]: true,
-              [`${props.prefixCls}-button-hidden`]: !props.showClear,
+              [props.prefixCls + '-button']: true,
+              [props.prefixCls + '-button-hidden']: !props.showClear
             })}
             size="small"
-            onClick={me.handleClear.bind(me)}
+            onClick={this.handleClear}
           >清空
           </Button>
+
+          {/*<Button className={`${props.prefixCls}-button`}
+           size="small"
+           onClick={this.handleSubmit}>确认
+           </Button>*/}
         </div>
-      </div>);
+      </div>
+    );
 
     return (
       <div>
         <Dropdown
           overlay={menu}
           minOverlayWidthMatchTrigger={false}
-          visible={me.state.visible}
-          onVisibleChange={me.handleVisbleChange.bind(me)}
-          trigger={['click']}
+          visible={this.state.visible}
+          onVisibleChange={this._handleVisibleChange}
+          trigger={["click"]}
           overlayClassName={classnames({
-            [`${props.prefixCls}-dropdown`]: true,
-            [props.dropdownClassName]: !!props.dropdownClassName,
+            [props.prefixCls + '-dropdown']: true,
+            [props.dropdownClassName]: !!props.dropdownClassName
           })}
         >
-          <span
-            className={classnames({
-              [props.prefixCls]: true,
-              [props.className]: !!props.className,
-              [`${props.prefixCls}-open`]: me.state.visible,
-              [`${props.prefixCls}-disabled`]: props.disabled,
-            })}
-          >
-            <span className={`${props.prefixCls}-selection ${props.prefixCls}-selection--multiple`}>
-              <span className={`${props.prefixCls}-selection--multiple--content`} title={me.processLabel('title')}>
-                {me.processLabel('content')}
-              </span>
-              <span className={`${props.prefixCls}-arrow`} />
+           <span
+             className={classnames({
+               [props.prefixCls]: true,
+               [props.className]: !!props.className,
+               [props.prefixCls + '-open']: this.state.visible,
+               [props.prefixCls + '-disabled']: props.disabled
+             })}
+           >
+             <span className={`${props.prefixCls}-selection ${props.prefixCls}-selection--multiple`}>
+               <span className={`${props.prefixCls}-selection--multiple--content`} title={this._processLabel('title')}>{this._processLabel('content')}</span>
+               <span className={`${props.prefixCls}-arrow`} />
+             </span>
             </span>
-          </span>
         </Dropdown>
       </div>
     );
   }
+
 }
-
-MultiSelect.defaultProps = {
-  prefixCls: 'kuma-multi-select',
-  className: '',
-  dropdownClassName: '',
-  value: [],
-  disabled: false,
-  placeholder: '',
-  titleBreakStr: '、',
-  optionLabelProp: 'text',
-  showSelectAll: true,
-  showClear: true,
-  onChange() {},
-  onSubmit() {},
-};
-
-MultiSelect.propTypes = {
-  prefixCls: React.PropTypes.string,
-  className: React.PropTypes.string,
-  dropdownClassName: React.PropTypes.string,
-  value: React.PropTypes.array,
-  disabled: React.PropTypes.bool,
-  maxSelect: React.PropTypes.number,
-  placeholder: React.PropTypes.string,
-  titleBreakStr: React.PropTypes.string,
-  optionLabelProp: React.PropTypes.string,
-  showSelectAll: React.PropTypes.bool,
-  showClear: React.PropTypes.bool,
-  onChange: React.PropTypes.func,
-  onSubmit: React.PropTypes.func,
-};
-
-
-// http://facebook.github.io/react/docs/reusable-components.html
-
-MultiSelect.Item = CheckboxGroup.Item;
-
-MultiSelect.displayName = 'MultiSelect';
-
-module.exports = MultiSelect;
