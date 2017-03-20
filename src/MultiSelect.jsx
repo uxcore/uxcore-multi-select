@@ -30,6 +30,7 @@ export default class MultiSelect extends Component {
     showClear: PropTypes.bool,
     onChange: PropTypes.func,
     onSubmit: PropTypes.func,
+    contorlButtonName: PropTypes.object,
   };
   static defaultProps = {
     prefixCls: 'kuma-multi-select',
@@ -42,8 +43,13 @@ export default class MultiSelect extends Component {
     optionLabelProp: 'text',
     showSelectAll: true,
     showClear: true,
-    onChange() {},
-    onSubmit() {},
+    onChange() { },
+    onSubmit() { },
+    contorlButtonName: {
+      clear: '清空',
+      selectAll: '全选',
+      maxSelect: ['最多选', '个'],
+    },
   };
 
   state = {
@@ -171,7 +177,12 @@ export default class MultiSelect extends Component {
             [`${props.prefixCls}-footer-hidden`]: !props.maxSelect && !props.showClear && !props.showSelectAll,
           })}
         >
-          {!!props.maxSelect && <p>最多选{props.maxSelect}个</p>}
+          {!!props.maxSelect && <p>{
+              props.contorlButtonName.maxSelect[0] +
+              props.maxSelect +
+              props.contorlButtonName.maxSelect[1]
+            }</p>
+          }
           <Button
             className={classnames({
               [`${props.prefixCls}-button`]: true,
@@ -180,7 +191,7 @@ export default class MultiSelect extends Component {
             size="small"
             disabled={!!(props.maxSelect && (props.maxSelect < canSelectItemNumbers))}
             onClick={this.handleSelectAll}
-          >全选
+          >{props.contorlButtonName.selectAll}
           </Button>
 
           <Button
@@ -190,7 +201,7 @@ export default class MultiSelect extends Component {
             })}
             size="small"
             onClick={this.handleClear}
-          >清空
+          >{props.contorlButtonName.clear}
           </Button>
         </div>
       </div>
