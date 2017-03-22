@@ -49,6 +49,7 @@ class Demo extends React.Component {
         <MultiSelect
           className="test-classname-select"
           dropdownClassName="test-classname-dropdown"
+          locale="en-us"
           value={this.state.value}
           disabled={this.state.disabled}
           placeholder="默认提示"

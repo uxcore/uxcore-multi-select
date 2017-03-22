@@ -1,3 +1,7 @@
+# 0.3.2
+
+* `NEW` add locale support 
+
 # 0.3.1
 
 * `NEW` add tests

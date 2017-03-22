@@ -79,6 +79,7 @@ http://uxcore.github.io/uxcore/components/uxcore-multi-select/
 | 配置项 | 类型 | 必填 | 默认值 | 功能/备注 |
 |---|---|---|---|---|
 |value|array|required|[]|由 value 组成的数组，与 React 受限组件表现一致，选中项与 value 保持一致，数组中的值与 item 的 value 相对应|
+|locale|string|optional|zh-cn|国际化语言，可选 `zh-cn`,`en-us`|
 |onChange|function|required|-|与 React 受限组件表现一致，在 checkbox 群发生改变时触发，借此来更改 value|
 |disabled|boolean|optional|false|是否为 disable 状态|
 |className|string|optional|''|选择框的classname|
