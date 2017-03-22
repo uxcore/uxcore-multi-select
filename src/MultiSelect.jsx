@@ -11,6 +11,7 @@ import Dropdown from 'uxcore-dropdown';
 import CheckboxGroup from 'uxcore-checkbox-group';
 import Button from 'uxcore-button';
 import classnames from 'classnames';
+import i18n from './i18n';
 
 export default class MultiSelect extends Component {
 
@@ -30,6 +31,7 @@ export default class MultiSelect extends Component {
     showClear: PropTypes.bool,
     onChange: PropTypes.func,
     onSubmit: PropTypes.func,
+    locale: PropTypes.string,
   };
   static defaultProps = {
     prefixCls: 'kuma-multi-select',
@@ -44,6 +46,7 @@ export default class MultiSelect extends Component {
     showClear: true,
     onChange() {},
     onSubmit() {},
+    locale: 'zh-cn',
   };
 
   state = {
@@ -171,7 +174,12 @@ export default class MultiSelect extends Component {
             [`${props.prefixCls}-footer-hidden`]: !props.maxSelect && !props.showClear && !props.showSelectAll,
           })}
         >
-          {!!props.maxSelect && <p>最多选{props.maxSelect}个</p>}
+          {!!props.maxSelect && <p>{
+              i18n[props.locale].maxSelect[0] +
+              props.maxSelect +
+              i18n[props.locale].maxSelect[1]
+            }</p>
+          }
           <Button
             className={classnames({
               [`${props.prefixCls}-button`]: true,
@@ -180,7 +188,7 @@ export default class MultiSelect extends Component {
             size="small"
             disabled={!!(props.maxSelect && (props.maxSelect < canSelectItemNumbers))}
             onClick={this.handleSelectAll}
-          >全选
+          >{i18n[props.locale].selectAll}
           </Button>
 
           <Button
@@ -190,7 +198,7 @@ export default class MultiSelect extends Component {
             })}
             size="small"
             onClick={this.handleClear}
-          >清空
+          >{i18n[props.locale].clear}
           </Button>
         </div>
       </div>

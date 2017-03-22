@@ -1,4 +1,5 @@
 import expect from 'expect.js';
+import ReactDom from 'react-dom';
 import React from 'react';
 import { shallow, mount } from 'enzyme';
 import sinon from 'sinon';
@@ -32,6 +33,7 @@ describe('MultiSelect', () => {
       showClear: React.PropTypes.bool,
       onChange: React.PropTypes.func,
       onSubmit: React.PropTypes.func,
+      locale: React.PropTypes.string,
     });
   });
 
@@ -121,7 +123,7 @@ describe('MultiSelect', () => {
         <Item value="1" />
         <Item value="2" />
       </MultiSelect>
-      );
+    );
     dropDown = mount(instance.find('Trigger').node.getComponent());
     dropDown.find(Button).at(0).simulate('click');
     expect(spy.calledOnce).to.be(true);
@@ -162,5 +164,17 @@ describe('MultiSelect', () => {
     spy.reset();
     dropDown.find(Button).at(1).simulate('click');
     expect(spy.calledOnce).to.be(false);
+  });
+
+  it('can change locale', () => {
+    instance = mount(<MultiSelect
+      maxSelect={3}
+      locale="en-us"
+    />);
+    expect(instance.exists()).to.be(true);
+    dropDown = mount(instance.find('Trigger').node.getComponent());
+    expect(ReactDom.findDOMNode(dropDown.find(Button).nodes[0]).innerHTML === 'select all');
+    expect(ReactDom.findDOMNode(dropDown.find(Button).nodes[1]).innerHTML === 'clear');
+    expect(dropDown.find('.kuma-multi-select-footer p').innerHTML === 'max select 3');
   });
 });
