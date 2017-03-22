@@ -1,8 +1,8 @@
 module.exports = {
   'en-us': {
-    clear: 'clear',
-    selectAll: 'select all',
-    maxSelect: ['max select ', ''],
+    clear: 'Clear',
+    selectAll: 'Select all',
+    maxSelect: ['Choose up to ', ''],
   },
   'zh-cn': {
     clear: '清空',
