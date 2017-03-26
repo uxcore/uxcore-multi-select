@@ -12,12 +12,11 @@
   box-sizing: border-box;
   margin: 0;
   position: relative;
-  //vertical-align: middle;
   width: 200px;
-  color: @black;
-  font-size: @font-size-base;
-  line-height: 28px;
-  height: 28px;
+  color: @dark-alpha-2;
+  font-size: 12px;
+  line-height: 36px;
+  height: 36px;
 
   &-arrow {
     position: absolute;
@@ -26,7 +25,8 @@
     line-height: 1;
     margin-top: -7px;
     font-family: 'kuma';
-
+    color: @normal-alpha-4;
+    font-size: 14px;
     * {
       display: none;
     }
@@ -44,6 +44,9 @@
     border: 1px solid @border-color;
     &:hover {
       border-color: @border-hover-color;
+      .@{MultiSelectPrefixCls}-arrow {
+        color: @normal-alpha-3;
+      }
     }
   }
   
@@ -56,11 +59,12 @@
     position: absolute;
     top: 0;
     left: 3px;
-    color: @text-thirdary-color;
+    color: @normal-alpha-5;
+    font-size: 12px;
   }
 
   &-selection--multiple {
-    height: 28px;
+    height: 36px;
     cursor: pointer;
     display: inline-block;
     width: 200px;
@@ -69,10 +73,11 @@
     white-space: nowrap;
     padding-left: 10px;
     padding-right: 20px;
-    line-height: 26px;
+    line-height: 34px;
     &--content{
       display: inline-block;
       overflow: hidden;
+      text-overflow: ellipsis;
       width: 168px;
       vertical-align: inherit;
     }
@@ -107,7 +112,7 @@
     }
 
     .@{MultiSelectPrefixCls}-selection__placeholder {
-      color: @text-thirdary-color;
+      color: @normal-alpha-5;
     }
   }
 
@@ -155,28 +160,15 @@
 }
 .@{MultiSelectPrefixCls}-dropdown {
 
-  //background-color: white;
-
-  z-index: 1070;
-  left: -9999px;
-  top: -9999px;
-  position: absolute;
-  outline: none;
-  overflow: hidden;
-  font-size: 12px;
-  padding-top: 5px;
-
-  .kuma-dropdown-menu{
-    margin: 0;
-    box-shadow: none;
-    border: none;
-  }
+  background: white;
+  box-shadow: @box-shadow-1;
 
   &-border{
-    border: 1px solid @border-color;
+    border: 1px solid @normal-alpha-6;
+    border-radius: @global-border-radius;
   }
 
-  .kuma-dropdown-menu > .kuma-dropdown-menu-item{
+  .kuma-dropdown-menu > .kuma-dropdown-menu-item {
     display: inline-block;
     cursor: pointer;
   }
@@ -203,29 +195,26 @@
 }
 .@{MultiSelectPrefixCls}-content {
   overflow-y: auto;
-  width: 320px;
-  max-height: 102px;
-  padding: 4px;
+  width: 330px;
+  max-height: 160px;
+  padding: 12px;
   background-color: #fff;
 }
 .@{MultiSelectPrefixCls}-footer {
 
   text-align: center;
-  background: #f2f2f2;
-  padding: 4px;
-  p {
-    color: #999;
+  padding: 12px;
+  border-top: 1px solid @split-line-color;
+  > p {
+    margin-bottom: 4px;
   }
   &-hidden {
     display: none;
   }
   .@{MultiSelectPrefixCls}-button {
-    margin: 3px;
-    margin-right: 10px;
-
+    margin-right: 12px;
     &-hidden {
       display: none;
-
     }
   }
 }

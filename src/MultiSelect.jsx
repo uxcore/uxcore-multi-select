@@ -197,6 +197,7 @@ export default class MultiSelect extends Component {
               [`${props.prefixCls}-button-hidden`]: !props.showClear,
             })}
             size="small"
+            type="secondary"
             onClick={this.handleClear}
           >{i18n[props.locale].clear}
           </Button>

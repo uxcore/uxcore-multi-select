@@ -7,6 +7,6 @@ module.exports = {
   'zh-cn': {
     clear: '清空',
     selectAll: '全选',
-    maxSelect: ['最多选', '个'],
+    maxSelect: ['最多选 ', ' 个'],
   },
 };

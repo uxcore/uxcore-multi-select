@@ -1,6 +1,6 @@
 {
  "name": "uxcore-multi-select",
- "version": "0.3.2",
+ "version": "0.3.3",
  "description": "uxcore-multi-select component for uxcore.",
  "repository": "https://github.com/uxcore/uxcore-multi-select.git",
  "author": "peijie.dpj",
@@ -40,7 +40,7 @@
   "react-addons-test-utils": "0.14.x",
   "react-dom": "0.14.x",
   "sinon": "^1.17.7",
-  "uxcore-kuma": "2.x",
+  "uxcore-kuma": "*",
   "uxcore-tools": "0.2.x"
  },
  "dependencies": {
