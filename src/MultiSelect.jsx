@@ -39,7 +39,7 @@ export default class MultiSelect extends Component {
     dropdownClassName: '',
     value: [],
     disabled: false,
-    placeholder: '',
+    placeholder: '请选择',
     titleBreakStr: '、',
     optionLabelProp: 'text',
     showSelectAll: true,

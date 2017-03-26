@@ -52,7 +52,7 @@ class Demo extends React.Component {
           locale="en-us"
           value={this.state.value}
           disabled={this.state.disabled}
-          placeholder="默认提示"
+          placeholder="请选择"
           titleBreakStr="、"
           optionLabelProp="text"
           showSelectAll
@@ -89,7 +89,7 @@ class Demo extends React.Component {
         <MultiSelect
           value={this.state.value}
           disabled
-          placeholder="默认提示"
+          placeholder="请选择"
           optionLabelProp="text"
           onChange={this.handleChange.bind(this)}
           onSubmit={this.handleSubmit.bind(this)}
