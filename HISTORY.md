@@ -1,3 +1,7 @@
+# 0.3.4
+
+* `FIXED` fix IE style overflow bug
+
 # 0.3.3
 
 * `CHANGED` change style
