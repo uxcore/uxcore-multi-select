@@ -12,6 +12,7 @@ import CheckboxGroup from 'uxcore-checkbox-group';
 import Button from 'uxcore-button';
 import classnames from 'classnames';
 import i18n from './i18n';
+import Checkbox from './Checkbox';
 
 export default class MultiSelect extends Component {
 
@@ -40,7 +41,7 @@ export default class MultiSelect extends Component {
     value: [],
     disabled: false,
     placeholder: '请选择',
-    titleBreakStr: '、',
+    titleBreakStr: ', ',
     optionLabelProp: 'text',
     showSelectAll: true,
     showClear: true,
@@ -95,6 +96,12 @@ export default class MultiSelect extends Component {
     props.onChange(valueList);
   };
 
+  handleOk = () => {
+    this.setState({
+      visible: false,
+    });
+  }
+
   processLabel = (type) => {
     const { props } = this;
     let res = [];
@@ -142,17 +149,62 @@ export default class MultiSelect extends Component {
     });
   };
 
-  render() {
-    const { props } = this;
-
+  renderSelectAll() {
+    const props = this.props;
     // 检查是否可以点击 全选
-    let canSelectItemNumbers = 0;
-
+    let isAllDisabled = true;
+    let isHalfChecked = false;
+    let checkedColumn = 0;
+    let enabledColumn = 0;
     React.Children.forEach(props.children, (item) => {
       if (!item.props.disabled) {
-        canSelectItemNumbers += 1;
+        isAllDisabled = false;
+        enabledColumn += 1;
+        if (props.value.indexOf(item.props.value) !== -1) {
+          isHalfChecked = true;
+          checkedColumn += 1;
+        }
       }
     });
+    const isAllChecked = enabledColumn ? checkedColumn === enabledColumn : false;
+    return (
+      <div
+        className={`${props.prefixCls}-select-all`}
+      >
+        <Checkbox
+          disabled={isAllDisabled}
+          checked={isAllChecked}
+          halfChecked={isAllChecked ? false : isHalfChecked}
+          className={`${props.prefixCls}-select-all-checkbox`}
+          onChange={(e) => {
+            if (e.target.checked) {
+              this.handleSelectAll();
+            } else {
+              this.handleClear();
+            }
+          }}
+        >
+          {i18n[props.locale].selectAll}
+        </Checkbox>
+      </div>
+    );
+  }
+
+  renderMaxSelect() {
+    const props = this.props;
+    return (
+      <p>
+        {
+          i18n[props.locale].maxSelect[0] +
+          props.maxSelect +
+          i18n[props.locale].maxSelect[1]
+        }
+      </p>
+    );
+  }
+
+  render() {
+    const { props } = this;
 
     const menu = (
       <div className={`${props.prefixCls}-dropdown-border`}>
@@ -167,40 +219,31 @@ export default class MultiSelect extends Component {
               ))
             }
           </CheckboxGroup>
-
         </div>
         <div
           className={classnames(`${props.prefixCls}-footer`, {
             [`${props.prefixCls}-footer-hidden`]: !props.maxSelect && !props.showClear && !props.showSelectAll,
           })}
         >
-          {!!props.maxSelect && <p>{
-              i18n[props.locale].maxSelect[0] +
-              props.maxSelect +
-              i18n[props.locale].maxSelect[1]
-            }</p>
-          }
-          <Button
-            className={classnames({
-              [`${props.prefixCls}-button`]: true,
-              [`${props.prefixCls}-button-hidden`]: !props.showSelectAll,
-            })}
-            size="small"
-            disabled={!!(props.maxSelect && (props.maxSelect < canSelectItemNumbers))}
-            onClick={this.handleSelectAll}
-          >{i18n[props.locale].selectAll}
-          </Button>
-
-          <Button
-            className={classnames({
-              [`${props.prefixCls}-button`]: true,
-              [`${props.prefixCls}-button-hidden`]: !props.showClear,
-            })}
-            size="small"
-            type="secondary"
-            onClick={this.handleClear}
-          >{i18n[props.locale].clear}
-          </Button>
+          {props.maxSelect ? this.renderMaxSelect() : this.renderSelectAll()}
+          <div className={`${props.prefixCls}-button-group`}>
+            <Button
+              className={classnames({
+                [`${props.prefixCls}-button`]: true,
+                [`${props.prefixCls}-button-hidden`]: !props.showClear,
+              })}
+              size="small"
+              type="secondary"
+              onClick={this.handleClear}
+            >{i18n[props.locale].clear}
+            </Button>
+            <Button
+              size="small"
+              onClick={this.handleOk}
+            >
+              {i18n[props.locale].ok}
+            </Button>
+          </div>
         </div>
       </div>
     );

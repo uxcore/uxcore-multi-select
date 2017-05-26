@@ -21,7 +21,7 @@ class Demo extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      value: ['item2', 'item15'],
+      value: ['item0', 'item15'],
       disabled: false,
     };
   }
@@ -60,7 +60,7 @@ class Demo extends React.Component {
           onChange={this.handleChange.bind(this)}
           onSubmit={this.handleSubmit.bind(this)}
         >
-          {text.map((item, index) => <Item value={`item${index}`} text={item} key={index} />)}
+          {text.map((item, index) => <Item value={`item${index}`} text={item} key={index} disabled={index % 4 === 0} />)}
         </MultiSelect>
         <h1>限制最多5项</h1>
         <MultiSelect

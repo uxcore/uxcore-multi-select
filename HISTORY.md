@@ -1,3 +1,7 @@
+# 0.4.0
+
+* `CHANGED` footer redesign
+
 # 0.3.4
 
 * `FIXED` fix IE style overflow bug

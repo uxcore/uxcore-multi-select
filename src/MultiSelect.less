@@ -205,19 +205,38 @@
 }
 .@{MultiSelectPrefixCls}-footer {
 
-  text-align: center;
-  padding: 12px;
+  padding: 16px 12px 0;
   border-top: 1px solid @split-line-color;
-  > p {
-    margin-bottom: 4px;
-  }
+  position: relative;
+  height: 50px;
   &-hidden {
     display: none;
   }
+  .@{MultiSelectPrefixCls}-button-group {
+    position: absolute;
+    right: 12px;
+    top: 11px;
+  }
   .@{MultiSelectPrefixCls}-button {
-    margin-right: 12px;
     &-hidden {
       display: none;
     }
   }
+  .@{MultiSelectPrefixCls}-select-all {
+    cursor: pointer;
+  }
+  .@{MultiSelectPrefixCls}-select-all-checkbox {
+    .kuma-checkbox + s,
+    .half-checked{
+      margin-right: 8px;
+    }
+    .half-checked {
+      display: inline-block;
+      width: 16px;
+      height: 16px;
+      background: url("@{svg-path}/checkbox-partial-checked.svg") no-repeat;
+      vertical-align: text-bottom;
+      color: @brand-primary;
+    }
+  } 
 }
