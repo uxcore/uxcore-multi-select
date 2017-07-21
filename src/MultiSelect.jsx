@@ -230,6 +230,7 @@ export default class MultiSelect extends Component {
             <Button
               className={classnames({
                 [`${props.prefixCls}-button`]: true,
+                [`${props.prefixCls}-button-clear`]: true,
                 [`${props.prefixCls}-button-hidden`]: !props.showClear,
               })}
               size="small"

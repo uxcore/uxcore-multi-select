@@ -1,3 +1,7 @@
+# 0.4.1
+
+* `FIXED` button style bug
+
 # 0.4.0
 
 * `CHANGED` footer redesign
