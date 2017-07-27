@@ -124,13 +124,10 @@ describe('MultiSelect', () => {
         <Item value="2" />
       </MultiSelect>
     );
-    dropDown = mount(instance.find('Trigger').node.getComponent());
-    dropDown.find(Button).at(0).simulate('click');
-    expect(spy.calledOnce).to.be(true);
+    instance.node.handleSelectAll();
     expect(spy.args[0][0]).to.eql(['1', '2']);
     spy.reset();
-    dropDown.find(Button).at(1).simulate('click');
-    expect(spy.calledOnce).to.be(true);
+    instance.node.handleClear();
     expect(spy.args[0][0]).to.eql([]);
     spy.reset();
 
@@ -142,28 +139,12 @@ describe('MultiSelect', () => {
         <Item value="4" />
       </MultiSelect>
     );
-    dropDown = mount(instance.find('Trigger').node.getComponent());
-    dropDown.find(Button).at(0).simulate('click');
-    expect(spy.calledOnce).to.be(true);
+    instance.node.handleSelectAll();
     expect(spy.args[0][0]).to.eql(['2', '3', '4']);
     spy.reset();
-    dropDown.find(Button).at(1).simulate('click');
-    expect(spy.calledOnce).to.be(true);
+    instance.node.handleClear();
     expect(spy.args[0][0]).to.eql(['2']);
     spy.reset();
-
-    instance = mount(
-      <MultiSelect onChange={spy} disabled>
-        <Item value="1" />
-        <Item value="2" />
-      </MultiSelect>
-    );
-    dropDown = mount(instance.find('Trigger').node.getComponent());
-    dropDown.find(Button).at(0).simulate('click');
-    expect(spy.calledOnce).to.be(false);
-    spy.reset();
-    dropDown.find(Button).at(1).simulate('click');
-    expect(spy.calledOnce).to.be(false);
   });
 
   it('can change locale', () => {
