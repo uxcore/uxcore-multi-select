@@ -4,7 +4,6 @@ import React from 'react';
 import { shallow, mount } from 'enzyme';
 import sinon from 'sinon';
 import Button from 'uxcore-button';
-import Dropdown from 'uxcore-dropdown';
 import CheckboxGroup from 'uxcore-checkbox-group';
 
 import MultiSelect from '../src';
