@@ -1,7 +1,7 @@
-import React from 'react';
+import React, { Component, PropTypes } from 'react';
 import classnames from 'classnames';
 
-class CheckBox extends React.Component {
+class CheckBox extends Component {
 
   getValue() {
     return this.checkbox.checked;
@@ -68,10 +68,10 @@ class CheckBox extends React.Component {
 
 
 CheckBox.propTypes = {
-  onChange: React.PropTypes.func,
-  checked: React.PropTypes.bool,
-  className: React.PropTypes.string,
-  children: React.PropTypes.any,
+  onChange: PropTypes.func,
+  checked: PropTypes.bool,
+  className: PropTypes.string,
+  children: PropTypes.any,
 };
 
 CheckBox.defaultProps = {

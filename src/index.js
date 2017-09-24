@@ -6,4 +6,4 @@
  * All rights reserved.
  */
 
-module.exports = require('./MultiSelect');
+export default from './MultiSelect';

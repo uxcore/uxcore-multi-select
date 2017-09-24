@@ -12,7 +12,7 @@ uxcore-multi-select ui component for react
 $ git clone https://github.com/uxcore/uxcore-multi-select
 $ cd uxcore-multi-select
 $ npm install
-$ gulp server
+$ npm start
 ```
 
 ## Usage
@@ -91,6 +91,8 @@ http://uxcore.github.io/uxcore/components/uxcore-multi-select/
 |showSelectAll|boolean|optional|true|是否显示全选按钮(如果maxSelect小于实际数量则该按钮成为disabled状态)|
 |showClear|boolean|optional|true|是否显示清空按钮|
 |onSubmit|function|optional|-|点击确认时的回调函数，返回valueList数组和labelList数组|
+|size | 尺寸，枚举值 `large`, `middle`, `small` | string | large |
+
 ### MulitSelectItem
 
 > 通过 MulitSelect.Item 取得。实际prop与checkboxGroup.Item相同

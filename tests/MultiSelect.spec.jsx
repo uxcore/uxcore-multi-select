@@ -1,9 +1,10 @@
 import expect from 'expect.js';
-import ReactDom from 'react-dom';
+import { findDOMNode } from 'react-dom';
 import React from 'react';
 import { shallow, mount } from 'enzyme';
 import sinon from 'sinon';
 import Button from 'uxcore-button';
+import Dropdown from 'uxcore-dropdown';
 import CheckboxGroup from 'uxcore-checkbox-group';
 
 import MultiSelect from '../src';
@@ -19,22 +20,23 @@ describe('MultiSelect', () => {
   });
 
   it('has a correct proptypes', () => {
-    expect(MultiSelect.propTypes).to.eql({
-      prefixCls: React.PropTypes.string,
-      className: React.PropTypes.string,
-      dropdownClassName: React.PropTypes.string,
-      value: React.PropTypes.array,
-      disabled: React.PropTypes.bool,
-      maxSelect: React.PropTypes.number,
-      placeholder: React.PropTypes.string,
-      titleBreakStr: React.PropTypes.string,
-      optionLabelProp: React.PropTypes.string,
-      showSelectAll: React.PropTypes.bool,
-      showClear: React.PropTypes.bool,
-      onChange: React.PropTypes.func,
-      onSubmit: React.PropTypes.func,
-      locale: React.PropTypes.string,
-    });
+    expect(Object.keys(MultiSelect.propTypes)).to.eql([
+      'prefixCls',
+      'className',
+      'dropdownClassName',
+      'value',
+      'disabled',
+      'maxSelect',
+      'placeholder',
+      'titleBreakStr',
+      'optionLabelProp',
+      'showSelectAll',
+      'showClear',
+      'onChange',
+      'onSubmit',
+      'locale',
+      'size',
+    ]);
   });
 
   it('has a correct display name', () => {
@@ -154,8 +156,15 @@ describe('MultiSelect', () => {
     />);
     expect(instance.exists()).to.be(true);
     dropDown = mount(instance.find('Trigger').node.getComponent());
-    expect(ReactDom.findDOMNode(dropDown.find(Button).nodes[0]).innerHTML === 'select all');
-    expect(ReactDom.findDOMNode(dropDown.find(Button).nodes[1]).innerHTML === 'clear');
+    expect(findDOMNode(dropDown.find(Button).nodes[0]).innerHTML === 'select all');
+    expect(findDOMNode(dropDown.find(Button).nodes[1]).innerHTML === 'clear');
     expect(dropDown.find('.kuma-multi-select-footer p').innerHTML === 'max select 3');
+  });
+
+  it('can change size', () => {
+    instance = mount(<MultiSelect size="small" />);
+    expect(instance.exists()).to.be(true);
+    const domNode = findDOMNode(instance.nodes[0]).childNodes[0];
+    expect(domNode.classList.contains('kuma-multi-select-small'));
   });
 });
