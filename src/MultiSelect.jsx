@@ -33,6 +33,7 @@ export default class MultiSelect extends Component {
     onChange: PropTypes.func,
     onSubmit: PropTypes.func,
     locale: PropTypes.string,
+    size: PropTypes.oneOf(['large', 'middle', 'small']),
   };
   static defaultProps = {
     prefixCls: 'kuma-multi-select',
@@ -48,6 +49,7 @@ export default class MultiSelect extends Component {
     onChange() {},
     onSubmit() {},
     locale: 'zh-cn',
+    size: 'large',
   };
 
   state = {
@@ -266,6 +268,7 @@ export default class MultiSelect extends Component {
             className={classnames({
               [props.prefixCls]: true,
               [props.className]: !!props.className,
+              [`${props.prefixCls}-${props.size}`]: !!props.size,
               [`${props.prefixCls}-open`]: this.state.visible,
               [`${props.prefixCls}-disabled`]: props.disabled,
             })}

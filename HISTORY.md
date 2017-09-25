@@ -1,3 +1,7 @@
+# 0.4.2
+
+* `NEW` add new prop `size`
+
 # 0.4.1
 
 * `FIXED` button style bug

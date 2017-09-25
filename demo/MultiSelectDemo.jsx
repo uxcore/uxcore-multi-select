@@ -6,23 +6,21 @@
  * All rights reserved.
  */
 
-const React = require('react');
-
-const MultiSelect = require('../src');
-
-const Item = MultiSelect.Item;
+import React, { Component } from 'react';
+import MultiSelect, { Item } from '../src';
 
 /* eslint-disable prefer-rest-params */
 /* eslint-disable class-methods-use-this */
 
 
-class Demo extends React.Component {
+class Demo extends Component {
 
   constructor(props) {
     super(props);
     this.state = {
       value: ['item0', 'item15'],
       disabled: false,
+      size: 'large',
     };
   }
 
@@ -31,10 +29,22 @@ class Demo extends React.Component {
       value,
       disabled: false,
     });
-    console.log('onChange', arguments);
+    global.console.log('onChange', arguments);
   }
+
   handleSubmit() {
-    console.log('onSubmit', arguments);
+    global.console.log('onSubmit', arguments);
+  }
+
+  handleSize(size) {
+    this.setState({
+      size,
+    });
+  }
+
+  renderSizeTrigger(size) {
+    return this.state.size === size ? <b>{` ${size} `}</b> :
+        <a href={`#${size}`} onClick={this.handleSize.bind(this, size)}>{` ${size} `}</a>;
   }
 
   render() {
@@ -45,6 +55,14 @@ class Demo extends React.Component {
 
     return (
       <div>
+        <h1>
+          尺寸：
+          {[
+            this.renderSizeTrigger('large'),
+            this.renderSizeTrigger('middle'),
+            this.renderSizeTrigger('small')
+          ]}
+        </h1>
         <h1>正常选择</h1>
         <MultiSelect
           className="test-classname-select"
@@ -59,8 +77,10 @@ class Demo extends React.Component {
           showClear
           onChange={this.handleChange.bind(this)}
           onSubmit={this.handleSubmit.bind(this)}
+          size={this.state.size}
         >
-          {text.map((item, index) => <Item value={`item${index}`} text={item} key={index} disabled={index % 4 === 0} />)}
+          {text.map((item, index) =>
+              <Item value={`item${index}`} text={item} key={index} disabled={index % 4 === 0} />)}
         </MultiSelect>
         <h1>限制最多5项</h1>
         <MultiSelect
@@ -70,6 +90,7 @@ class Demo extends React.Component {
           optionLabelProp="text"
           onChange={this.handleChange.bind(this)}
           onSubmit={this.handleSubmit.bind(this)}
+          size={this.state.size}
         >
           {text.map((item, index) => <Item value={`item${index}`} text={item} key={index} />)}
         </MultiSelect>
@@ -82,6 +103,7 @@ class Demo extends React.Component {
           showClear={false}
           onChange={this.handleChange.bind(this)}
           onSubmit={this.handleSubmit.bind(this)}
+          size={this.state.size}
         >
           {text.map((item, index) => <Item value={`item${index}`} text={item} key={index} />)}
         </MultiSelect>
@@ -93,6 +115,7 @@ class Demo extends React.Component {
           optionLabelProp="text"
           onChange={this.handleChange.bind(this)}
           onSubmit={this.handleSubmit.bind(this)}
+          size={this.state.size}
         >
           {text.map((item, index) => <Item value={`item${index}`} text={item} key={index} />)}
         </MultiSelect>
@@ -101,4 +124,4 @@ class Demo extends React.Component {
   }
 }
 
-module.exports = Demo;
+export default Demo;
