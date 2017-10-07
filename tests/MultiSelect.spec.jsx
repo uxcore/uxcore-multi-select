@@ -1,10 +1,8 @@
 import expect from 'expect.js';
-import { findDOMNode } from 'react-dom';
 import React from 'react';
 import Enzyme, { shallow, mount } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-15';
 import sinon from 'sinon';
-import Button from 'uxcore-button';
 import CheckboxGroup from 'uxcore-checkbox-group';
 
 import MultiSelect, { Item } from '../src';
