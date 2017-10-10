@@ -32,24 +32,24 @@
     ""
   ],
   "devDependencies": {
-    "console-polyfill": "^0.2.2",
-    "enzyme": "^3.0.0",
-    "enzyme-adapter-react-15": "^1.0.0",
-    "es5-shim": "^4.5.8",
-    "expect.js": "~0.3.1",
-    "kuma-base": "1.x",
-    "react": "15.x",
-    "react-dom": "15.x",
-    "react-test-renderer": "15.x",
-    "uxcore-kuma": "*",
+    "console-polyfill": "^0.2.3",
+    "enzyme": "^3.1.0",
+    "enzyme-adapter-react-15": "^1.0.1",
+    "es5-shim": "^4.5.9",
+    "expect.js": "^0.3.1",
+    "kuma-base": "^1.7.2",
+    "react": "^15.6.2",
+    "react-dom": "^15.6.2",
+    "react-test-renderer": "^15.6.2",
+    "uxcore-kuma": "^8.1.1",
     "uxcore-tools": "0.2.x"
   },
   "dependencies": {
-    "classnames": "^2.1.2",
-    "prop-types": "15.x",
-    "uxcore-button": "~0.3.1",
-    "uxcore-checkbox-group": "~1.1.0",
-    "uxcore-dropdown": "~0.4.0"
+    "classnames": "^2.2.5",
+    "prop-types": "^15.6.0",
+    "uxcore-button": "^0.3.12",
+    "uxcore-checkbox-group": "^1.1.4",
+    "uxcore-dropdown": "^0.4.1"
   },
   "contributors": [],
   "license": "MIT"

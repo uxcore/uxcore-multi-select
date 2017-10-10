@@ -1,3 +1,7 @@
+# 0.4.4
+
+* `IMPROVE` support react 15.x
+
 # 0.4.2
 
 * `NEW` add new prop `size`
