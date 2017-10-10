@@ -1,14 +1,13 @@
 import expect from 'expect.js';
-import { findDOMNode } from 'react-dom';
 import React from 'react';
-import { shallow, mount } from 'enzyme';
+import Enzyme, { shallow, mount } from 'enzyme';
+import Adapter from 'enzyme-adapter-react-15';
 import sinon from 'sinon';
-import Button from 'uxcore-button';
 import CheckboxGroup from 'uxcore-checkbox-group';
 
-import MultiSelect from '../src';
+import MultiSelect, { Item } from '../src';
 
-const Item = MultiSelect.Item;
+Enzyme.configure({ adapter: new Adapter() });
 
 describe('MultiSelect', () => {
   let instance;
@@ -56,7 +55,7 @@ describe('MultiSelect', () => {
         <Item value="3" />
       </MultiSelect>
     );
-    dropDown = mount(instance.find('Trigger').node.getComponent());
+    dropDown = mount(instance.find('Trigger').instance().getComponent());
     expect(dropDown.find(CheckboxGroup.Item).length).to.be(3);
   });
 
@@ -90,28 +89,28 @@ describe('MultiSelect', () => {
         <Item value="3" />
       </MultiSelect>
     );
-    dropDown = mount(instance.find('Trigger').node.getComponent());
+    dropDown = mount(instance.find('Trigger').instance().getComponent());
     const item = dropDown.find(CheckboxGroup.Item);
     const checkBox1 = item.find('.kuma-checkbox').at(0);
-    checkBox1.node.checked = true;
+    checkBox1.instance().checked = true;
     checkBox1.simulate('change');
     expect(spy.callCount).to.be(1);
     expect(spy.args[0][0]).to.eql(['1']);
-    checkBox1.node.checked = false;
+    checkBox1.instance().checked = false;
     checkBox1.simulate('change');
     expect(spy.callCount).to.be(2);
     expect(spy.args[1][0]).to.eql([]);
     spy.reset();
     const checkBox2 = item.find('.kuma-checkbox').at(1);
     const checkBox3 = item.find('.kuma-checkbox').at(2);
-    checkBox1.node.checked = true;
+    checkBox1.instance().checked = true;
     checkBox1.simulate('change');
-    checkBox2.node.checked = true;
+    checkBox2.instance().checked = true;
     checkBox2.simulate('change');
     expect(spy.callCount).to.be(2);
     expect(spy.args[0][0]).to.eql(['1']);
     expect(spy.args[1][0]).to.eql(['1', '2']);
-    checkBox3.node.checked = true;
+    checkBox3.instance().checked = true;
     checkBox3.simulate('change');
     expect(spy.callCount).to.be(3);
     expect(spy.args[2][0]).to.eql(['1', '2']);
@@ -125,10 +124,10 @@ describe('MultiSelect', () => {
         <Item value="2" />
       </MultiSelect>
     );
-    instance.node.handleSelectAll();
+    instance.instance().handleSelectAll();
     expect(spy.args[0][0]).to.eql(['1', '2']);
     spy.reset();
-    instance.node.handleClear();
+    instance.instance().handleClear();
     expect(spy.args[0][0]).to.eql([]);
     spy.reset();
 
@@ -140,10 +139,10 @@ describe('MultiSelect', () => {
         <Item value="4" />
       </MultiSelect>
     );
-    instance.node.handleSelectAll();
+    instance.instance().handleSelectAll();
     expect(spy.args[0][0]).to.eql(['2', '3', '4']);
     spy.reset();
-    instance.node.handleClear();
+    instance.instance().handleClear();
     expect(spy.args[0][0]).to.eql(['2']);
     spy.reset();
   });
@@ -154,16 +153,15 @@ describe('MultiSelect', () => {
       locale="en-us"
     />);
     expect(instance.exists()).to.be(true);
-    dropDown = mount(instance.find('Trigger').node.getComponent());
-    expect(findDOMNode(dropDown.find(Button).nodes[0]).innerHTML === 'select all');
-    expect(findDOMNode(dropDown.find(Button).nodes[1]).innerHTML === 'clear');
-    expect(dropDown.find('.kuma-multi-select-footer p').innerHTML === 'max select 3');
+    dropDown = mount(instance.find('Trigger').instance().getComponent());
+    expect(dropDown.find('.kuma-button-primary').text()).to.eql('Ok');
+    expect(dropDown.find('.kuma-button-secondary').text()).to.eql('Clear');
+    expect(dropDown.find('.kuma-multi-select-footer p').text()).to.eql('Choose up to 3');
   });
 
   it('can change size', () => {
     instance = mount(<MultiSelect size="small" />);
     expect(instance.exists()).to.be(true);
-    const domNode = findDOMNode(instance.nodes[0]).childNodes[0];
-    expect(domNode.classList.contains('kuma-multi-select-small'));
+    expect(instance.find('.kuma-multi-select').hasClass('kuma-multi-select-small'));
   });
 });

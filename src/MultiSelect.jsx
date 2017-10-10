@@ -6,7 +6,8 @@
  * All rights reserved.
  */
 
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import Dropdown from 'uxcore-dropdown';
 import CheckboxGroup from 'uxcore-checkbox-group';
 import Button from 'uxcore-button';

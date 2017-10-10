@@ -43,8 +43,12 @@ class Demo extends Component {
   }
 
   renderSizeTrigger(size) {
-    return this.state.size === size ? <b>{` ${size} `}</b> :
-        <a href={`#${size}`} onClick={this.handleSize.bind(this, size)}>{` ${size} `}</a>;
+    return <span key={`trigger-${size}`}>
+      {
+        this.state.size === size ? <b>{` ${size} `}</b> :
+            <a href={`#${size}`} onClick={this.handleSize.bind(this, size)}>{` ${size} `}</a>
+      }
+    </span>;
   }
 
   render() {
