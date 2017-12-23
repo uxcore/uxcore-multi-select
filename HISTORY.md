@@ -1,3 +1,7 @@
+# 0.4.5
+
+* `IMPROVE` fix issue #8 keep selection order.
+
 # 0.4.4
 
 * `IMPROVE` support react 15.x
