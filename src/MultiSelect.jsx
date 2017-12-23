@@ -108,8 +108,14 @@ export default class MultiSelect extends Component {
   processLabel = (type) => {
     const { props } = this;
     let res = [];
-    res = React.Children.map(props.children, (item) => {
-      if (this.hasSelected(item.props.value)) {
+    res = React.Children.map(props.value, (value) => {
+      let item = null;
+      React.Children.forEach(props.children, (child) => {
+        if (child.props.value === value) {
+          item = child;
+        }
+      });
+      if (item) {
         switch (type) {
           case 'content':
             return <span className={`${props.prefixCls}-selection__choice__content`}>{item.props[props.optionLabelProp]}<span className={`${props.prefixCls}-selection__choice__break`}>{props.titleBreakStr}</span></span>;
@@ -208,7 +214,6 @@ export default class MultiSelect extends Component {
 
   render() {
     const { props } = this;
-
     const menu = (
       <div className={`${props.prefixCls}-dropdown-border`}>
         <div className={`${props.prefixCls}-content`}>
