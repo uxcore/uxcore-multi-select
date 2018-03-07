@@ -1,3 +1,7 @@
+# 0.4.6
+
+* `FIXED` fix issue #10 add missing onSubmit handler
+
 # 0.4.5
 
 * `IMPROVE` fix issue #8 keep selection order.
