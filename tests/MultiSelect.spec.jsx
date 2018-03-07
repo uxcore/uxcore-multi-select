@@ -80,11 +80,11 @@ describe('MultiSelect', () => {
     expect(instance.state().visible).to.be(false);
   });
 
-  it('triggers handleChange correctly', () => {
+  it('triggers handleChange and handleOk correctly', () => {
     const spy = sinon.spy();
     instance = mount(
-      <MultiSelect onChange={spy} maxSelect={2}>
-        <Item value="1" />
+      <MultiSelect onChange={spy} maxSelect={2} onSubmit={spy}>
+        <Item value="1" text="text1" />
         <Item value="2" />
         <Item value="3" />
       </MultiSelect>
@@ -114,6 +114,11 @@ describe('MultiSelect', () => {
     checkBox3.simulate('change');
     expect(spy.callCount).to.be(3);
     expect(spy.args[2][0]).to.eql(['1', '2']);
+    spy.reset();
+    instance.instance().handleOk();
+    expect(spy.callCount).to.be(1);
+    expect(spy.args[0][0]).to.eql(['1', '2']);
+    expect(spy.args[0][1]).to.eql(['text1', '2']);
   });
 
   it('triggers handleSelectAll and handleClear correctly', () => {

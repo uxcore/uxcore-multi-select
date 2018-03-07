@@ -100,9 +100,20 @@ export default class MultiSelect extends Component {
   };
 
   handleOk = () => {
+    const { props, state } = this;
     this.setState({
       visible: false,
     });
+
+    const lastLabels = [];
+    state.lastValues.forEach((value) => {
+      React.Children.forEach(props.children, (item) => {
+        if (value === item.props.value) {
+          lastLabels.push(item.props.text || item.props.value);
+        }
+      });
+    })
+    props.onSubmit(state.lastValues, lastLabels);
   }
 
   processLabel = (type) => {
