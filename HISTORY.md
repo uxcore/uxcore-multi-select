@@ -1,3 +1,7 @@
+# 0.4.8
+
+* `CHANGED` update `uxcore-button` to `^0.4.0`
+
 # 0.4.6
 
 * `FIXED` fix issue #10 add missing onSubmit handler
