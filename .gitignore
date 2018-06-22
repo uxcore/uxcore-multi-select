@@ -28,3 +28,4 @@ dist
 build
 assets/**/*.css
 package-lock.json
+coverage

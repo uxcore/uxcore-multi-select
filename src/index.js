@@ -6,4 +6,6 @@
  * All rights reserved.
  */
 
-export default from './MultiSelect';
+import Multiselect from './MultiSelect';
+
+export default Multiselect; 

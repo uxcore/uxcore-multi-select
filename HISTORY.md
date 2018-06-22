@@ -1,3 +1,7 @@
+# 0.4.9
+
+* `CHANGED` upgrade to react 16
+
 # 0.4.8
 
 * `CHANGED` update `uxcore-button` to `^0.4.0`
