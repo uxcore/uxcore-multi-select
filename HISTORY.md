@@ -1,3 +1,7 @@
+# 0.5.0
+
+* `CHANGED` update `uxcore-dropdown` to `^0.5.0`
+
 # 0.4.9
 
 * `CHANGED` upgrade to react 16
