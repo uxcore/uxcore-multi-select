@@ -1,3 +1,7 @@
+# 0.5.1
+
+* `FIXED` fix issue #50 remove extra 3px padding.
+
 # 0.5.0
 
 * `CHANGED` update `uxcore-dropdown` to `^0.5.0`
