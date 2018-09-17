@@ -1,3 +1,7 @@
+# 0.5.2
+
+* `CHANGED` support js style export
+
 # 0.5.1
 
 * `FIXED` fix issue #50 remove extra 3px padding.

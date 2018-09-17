@@ -5,12 +5,9 @@
  * Copyright 2014-2015, Uxcore Team, Alinw.
  * All rights reserved.
  */
-@__multi-select-prefix-cls: kuma-multi-select;
-@__multi-select-trigger-height-large: @trigger-height-large;
-@__multi-select-trigger-height-middle: @trigger-height-middle;
-@__multi-select-trigger-height-small: @trigger-height-small;
+@__multiSelectPrefixCls: kuma-multi-select;
 
-.@{__multi-select-prefix-cls} {
+.@{__multiSelectPrefixCls} {
   display: inline-block;
   box-sizing: border-box;
   margin: 0;
@@ -18,8 +15,8 @@
   width: 200px;
   color: @dark-alpha-2;
   font-size: 12px;
-  line-height: @__multi-select-trigger-height-large;
-  height: @__multi-select-trigger-height-large;
+  line-height: @trigger-height-large;
+  height: @trigger-height-large;
 
   &-arrow {
     position: absolute;
@@ -47,13 +44,13 @@
     border: 1px solid @border-color;
     &:hover {
       border-color: @border-hover-color;
-      .@{__multi-select-prefix-cls}-arrow {
+      .@{__multiSelectPrefixCls}-arrow {
         color: @normal-alpha-3;
       }
     }
   }
   
-  .@{__multi-select-prefix-cls}-selection__rendered {
+  .@{__multiSelectPrefixCls}-selection__rendered {
     margin: 0;
     list-style: none;
   }
@@ -67,7 +64,7 @@
   }
 
   &-selection--multiple {
-    height: @__multi-select-trigger-height-large;
+    height: @trigger-height-large;
     cursor: pointer;
     display: inline-block;
     width: 200px;
@@ -76,7 +73,7 @@
     white-space: nowrap;
     padding-left: 12px;
     padding-right: 20px;
-    line-height: @__multi-select-trigger-height-large - 2;
+    line-height: @trigger-height-large - 2;
     &--content{
       display: inline-block;
       overflow: hidden;
@@ -85,14 +82,14 @@
       vertical-align: inherit;
     }
 
-    .@{__multi-select-prefix-cls}-selection__rendered {
+    .@{__multiSelectPrefixCls}-selection__rendered {
       overflow: hidden;
       text-overflow: ellipsis;
       padding-left: 6px;
       padding-bottom: 4px;
     }
 
-    .@{__multi-select-prefix-cls}-selection__choice {
+    .@{__multiSelectPrefixCls}-selection__choice {
       background-color: #f3f3f3;
       cursor: default;
       float: left;
@@ -102,19 +99,19 @@
       position: relative;
     }
 
-    .@{__multi-select-prefix-cls}-selection__choice__content {
+    .@{__multiSelectPrefixCls}-selection__choice__content {
       //display: inline-block;
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
       max-width: 100%;
 
-      &:last-child .@{__multi-select-prefix-cls}-selection__choice__break {
+      &:last-child .@{__multiSelectPrefixCls}-selection__choice__break {
         display: none;
       }
     }
 
-    .@{__multi-select-prefix-cls}-selection__placeholder {
+    .@{__multiSelectPrefixCls}-selection__placeholder {
       color: @normal-alpha-4;
     }
   }
@@ -137,18 +134,18 @@
   }
 
   &-open {
-    .@{__multi-select-prefix-cls}-arrow {
+    .@{__multiSelectPrefixCls}-arrow {
       &:before {
         content: '\e613';
       }
     }
-    .@{__multi-select-prefix-cls}-selection {
+    .@{__multiSelectPrefixCls}-selection {
       border-color: @border-hover-color;
     }
   }
 
 }
-.@{__multi-select-prefix-cls}-mask {
+.@{__multiSelectPrefixCls}-mask {
   position: fixed;
   width: 100%;
   height: 100%;
@@ -164,7 +161,7 @@
     display: block;
   }
 }
-.@{__multi-select-prefix-cls}-dropdown {
+.@{__multiSelectPrefixCls}-dropdown {
 
   background: white;
   box-shadow: @box-shadow-1;
@@ -200,14 +197,14 @@
 
 
 }
-.@{__multi-select-prefix-cls}-content {
+.@{__multiSelectPrefixCls}-content {
   overflow-y: auto;
   width: 330px;
   max-height: 160px;
   padding: 12px;
   background-color: #fff;
 }
-.@{__multi-select-prefix-cls}-footer {
+.@{__multiSelectPrefixCls}-footer {
 
   padding: 16px 12px 0;
   border-top: 1px solid @split-line-color;
@@ -216,12 +213,12 @@
   &-hidden {
     display: none;
   }
-  .@{__multi-select-prefix-cls}-button-group {
+  .@{__multiSelectPrefixCls}-button-group {
     position: absolute;
     right: 12px;
     top: 11px;
   }
-  .@{__multi-select-prefix-cls}-button {
+  .@{__multiSelectPrefixCls}-button {
     &-hidden {
       display: none;
     }
@@ -229,10 +226,10 @@
       margin-right: 8px;
     }
   }
-  .@{__multi-select-prefix-cls}-select-all {
+  .@{__multiSelectPrefixCls}-select-all {
     cursor: pointer;
   }
-  .@{__multi-select-prefix-cls}-select-all-checkbox {
+  .@{__multiSelectPrefixCls}-select-all-checkbox {
     .kuma-checkbox + s,
     .half-checked{
       margin-right: 8px;
@@ -248,22 +245,22 @@
   } 
 }
 
-.@{__multi-select-prefix-cls}-middle {
-  line-height: @__multi-select-trigger-height-middle;
-  height: @__multi-select-trigger-height-middle;
+.@{__multiSelectPrefixCls}-middle {
+  line-height: @trigger-height-middle;
+  height: @trigger-height-middle;
 
-  .@{__multi-select-prefix-cls}-selection--multiple {
-    height: @__multi-select-trigger-height-middle;
-    line-height: @__multi-select-trigger-height-middle - 2;
+  .@{__multiSelectPrefixCls}-selection--multiple {
+    height: @trigger-height-middle;
+    line-height: @trigger-height-middle - 2;
   }
 }
 
-.@{__multi-select-prefix-cls}-small {
-  line-height: @__multi-select-trigger-height-small;
-  height: @__multi-select-trigger-height-small;
+.@{__multiSelectPrefixCls}-small {
+  line-height: @trigger-height-small;
+  height: @trigger-height-small;
 
-  .@{__multi-select-prefix-cls}-selection--multiple {
-    height: @__multi-select-trigger-height-small;
-    line-height: @__multi-select-trigger-height-small - 2;
+  .@{__multiSelectPrefixCls}-selection--multiple {
+    height: @trigger-height-small;
+    line-height: @trigger-height-small - 2;
   }
 }
