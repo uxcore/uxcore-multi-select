@@ -1,3 +1,11 @@
+# 0.5.4
+
+* `FIXED` long text choice item style fix
+
+# 0.5.3
+
+* `CHANGED` support js style export
+
 # 0.5.2
 
 * `CHANGED` support js style export

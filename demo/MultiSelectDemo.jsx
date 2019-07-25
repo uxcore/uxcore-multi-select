@@ -123,6 +123,19 @@ class Demo extends Component {
         >
           {text.map((item, index) => <Item value={`item${index}`} text={item} key={index} />)}
         </MultiSelect>
+        <h1>长选项显示</h1>
+        <MultiSelect
+          placeholder="请选择"
+          optionLabelProp="text"
+          onChange={this.handleChange.bind(this)}
+          onSubmit={this.handleSubmit.bind(this)}
+          size={this.state.size}
+        >
+          <Item value={1} text="很长很长很长很长很长很长很长很长的描述显示效果怎么样呢" />
+          <Item value={2} text="选项2不是特别长" />
+          <Item value={3} text="选项3" />
+          <Item value={4} text="选项4有一点点一点点一点点长" />
+        </MultiSelect>
       </div>
     );
   }

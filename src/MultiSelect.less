@@ -6,6 +6,7 @@
  * All rights reserved.
  */
 @__multiSelectPrefixCls: kuma-multi-select;
+@__checkbox-prefix-cls: kuma-checkbox-group;
 
 .@{__multiSelectPrefixCls} {
   display: inline-block;
@@ -177,8 +178,7 @@
     cursor: pointer;
   }
 
-  .kuma-checkbox-group {
-
+  .@{__checkbox-prefix-cls} {
     &:before {
       content: "";
       position: absolute;
@@ -189,13 +189,21 @@
       background: #ffffff;
       background: rgba(255, 255, 255, 0.01);
     }
+
     > label {
       padding: 3px;
       display: inline-block;
+      margin-bottom: 5px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      max-width: 100%;
+
+      .@{__checkbox-prefix-cls}-item-content {
+        display: inline;
+      }
     }
   }
-
-
 }
 .@{__multiSelectPrefixCls}-content {
   overflow-y: auto;
